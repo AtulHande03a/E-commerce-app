@@ -48,6 +48,7 @@ const Right = styled.div`
   flex: 1;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 `;
 
 const MenuItem = styled.div`
