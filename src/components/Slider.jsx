@@ -1,6 +1,7 @@
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@mui/icons-material";
 import styled from "styled-components";
-import React from "react";
+import React, { useState } from "react";
+import { sliderItems } from "../data";
 
 const Container = styled.div`
   width: 100%;
@@ -27,11 +28,13 @@ const Arrow = styled.div`
   margin: auto;
   cursor: pointer;
   opacity: 0.5;
+  z-index: 2;
 `;
 
 const Wrapper = styled.div`
   height: 100%;
   display: flex;
+  transform: translateX(${(props) => props.slideIndex * -100}vw);
 `;
 
 const Slide = styled.div`
@@ -39,13 +42,14 @@ const Slide = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
+  background-color: #${(props) => props.bg};
 `;
 const ImageContainer = styled.div`
   flex: 1;
   height: 100%;
 `;
 
-const Image = styled.div`
+const Image = styled.img`
   height: 80%;
 `;
 
@@ -70,50 +74,39 @@ const Button = styled.button`
   cursor: pointer;
 `;
 export const Slider = () => {
+  const [slideIndex, setSlideIndex] = useState(0);
+
+  const handleClick = (direction) => {
+    if (direction === "left") {
+      setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
+    }
+    if (direction === "right") {
+      setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
+    }
+  };
   return (
     <Container>
-      <Arrow direction="left">
+      <Arrow direction="left" onClick={() => handleClick("left")}>
         <ArrowLeftOutlined />
       </Arrow>
-      <Wrapper>
-        <Slide bg="f5fafd">
-          <ImageContainer>
-            <Image src="https://i.ibb.co/XsdmR2c/1.png" />
-          </ImageContainer>
-          <InfoContainer>
-            <Title>SUMMER SALE</Title>
-            <Desc>
-              DON'T COMPROMISE ON STYLE ! GET FLAT 30% OFF FOR NEW ARRIVALS.
-            </Desc>
-            <Button>SHOP NOW</Button>
-          </InfoContainer>
-        </Slide>
-        <Slide>
-          <ImageContainer>
-            <Image src="https://i.ibb.co/XsdmR2c/1.png" />
-          </ImageContainer>
-          <InfoContainer>
-            <Title>WINTER SALE</Title>
-            <Desc>
-              DON'T COMPROMISE ON STYLE ! GET FLAT 40% OFF FOR NEW ARRIVALS.
-            </Desc>
-            <Button>SHOP NOW</Button>
-          </InfoContainer>
-        </Slide>
-        <Slide>
-          <ImageContainer>
-            <Image src="https://i.ibb.co/XsdmR2c/1.png" />
-          </ImageContainer>
-          <InfoContainer>
-            <Title>POPULAR SALE</Title>
-            <Desc>
-              DON'T COMPROMISE ON STYLE ! GET FLAT 50% OFF FOR NEW ARRIVALS.
-            </Desc>
-            <Button>SHOP NOW</Button>
-          </InfoContainer>
-        </Slide>
+      <Wrapper slideIndex={slideIndex}>
+        {sliderItems.map((item) => {
+          const { id, img, title, bg, desc } = item;
+          return (
+            <Slide bg={bg} key={id}>
+              <ImageContainer>
+                <Image src={img} alt={title} />
+              </ImageContainer>
+              <InfoContainer>
+                <Title>{title}</Title>
+                <Desc>{desc}</Desc>
+                <Button>SHOP NOW</Button>
+              </InfoContainer>
+            </Slide>
+          );
+        })}
       </Wrapper>
-      <Arrow direction="right">
+      <Arrow direction="right" onClick={() => handleClick("right")}>
         <ArrowRightOutlined />
       </Arrow>
     </Container>
