@@ -68,7 +68,7 @@ export const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>Lama</Logo>
+          <Logo>Chroma</Logo>
         </Center>
         <Right>
           <MenuItem>REGISTER</MenuItem>
