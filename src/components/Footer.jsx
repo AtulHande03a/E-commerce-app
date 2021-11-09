@@ -8,9 +8,12 @@ import {
   Twitter,
 } from "@mui/icons-material";
 import styled from "styled-components";
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   display: flex;
+
+  ${mobile({ flexDirection: "column" })};
 `;
 const Left = styled.div`
   flex: 1;
@@ -44,6 +47,8 @@ const SocialIcon = styled.div`
 const Center = styled.div`
   flex: 1;
   padding: 20px;
+
+  ${mobile({ display: "none" })};
 `;
 
 const Title = styled.h3`
@@ -65,6 +70,8 @@ const ListItem = styled.li`
 
 const Right = styled.div`
   flex: 1;
+  padding: 20px;
+  ${mobile({ backgroundColor: "#fff8f8" })};
 `;
 
 const ContactItem = styled.div`
@@ -81,7 +88,7 @@ const Footer = () => {
   return (
     <Container>
       <Left>
-        <Logo>Lama.</Logo>
+        <Logo>Chroma.</Logo>
         <Desc>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ultrices
           ac justo bibendum elementum. Aliquam erat volutpat. Pellentesque
